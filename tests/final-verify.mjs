@@ -14,39 +14,42 @@ await page.locator('button[type="submit"]').click();
 await page.waitForURL(BASE + "/", { timeout: 20000 }).catch(() => {});
 await page.waitForTimeout(3000);
 
-log("1) home has Unsloth Studio:", await page.evaluate(() => document.body.innerText.includes("Unsloth Studio")));
+const homeInfo = await page.evaluate(() => {
+  const links = [...document.querySelectorAll("a")].filter((a) => (a.innerText || "").includes("Unsloth Studio"));
+  return { present: document.body.innerText.includes("Unsloth Studio"), hrefs: links.map((a) => a.getAttribute("href")) };
+});
+log("1) home:", JSON.stringify(homeInfo));
+
+if (homeInfo.hrefs.length) {
+  const [newPage] = await Promise.all([
+    ctx.waitForEvent("page", { timeout: 20000 }).catch(() => null),
+    page.click(`a[href="${homeInfo.hrefs[0]}"]`),
+  ]);
+  const target = newPage || page;
+  await target.waitForLoadState("domcontentloaded").catch(() => {});
+  await target.waitForTimeout(6000);
+  const opened = await target.evaluate(() => ({ url: location.href, title: document.title, hasUnsloth: (document.body.innerHTML + " " + document.body.innerText).toLowerCase().includes("unsloth") }));
+  log("2) launched from home:", JSON.stringify(opened));
+}
 
 await page.goto(BASE + "/app-store", { waitUntil: "domcontentloaded" });
 await page.waitForTimeout(4000);
-const listed = await page.evaluate(() => !!document.querySelector('a[href="/app-store/oliver-unsloth-studio"], a[href*="oliver-unsloth-studio"]'));
-log("2) store catalog lists app:", listed);
-
+let listed = await page.evaluate(() => !!document.querySelector('a[href*="oliver-unsloth-studio"]'));
 if (!listed) {
   const allBtn = page.locator('text=Все приложения').first();
   if (await allBtn.count()) { await allBtn.click(); await page.waitForTimeout(3000); }
-  log("   after Все приложения:", await page.evaluate(() => !!document.querySelector('a[href*="oliver-unsloth-studio"]')));
+  listed = await page.evaluate(() => !!document.querySelector('a[href*="oliver-unsloth-studio"]'));
 }
+log("3) store lists app:", listed);
 
-await page.goto(BASE + "/app-store/oliver-unsloth-studio", { waitUntil: "domcontentloaded" });
-await page.waitForTimeout(3000);
-const detail = await page.evaluate(() => {
-  const btns = [...document.querySelectorAll("button")].map((b) => b.innerText.trim()).filter(Boolean);
-  return { text: document.body.innerText.slice(0, 250).replace(/\n+/g, " | "), buttons: btns.slice(0, 12) };
-});
-log("3) detail page:", JSON.stringify(detail));
-
-const action = await page.evaluate(() => {
-  const btn = [...document.querySelectorAll("button")].find((b) => /Открыть|Open|Установить/i.test(b.innerText));
-  if (btn) { btn.click(); return btn.innerText.trim(); }
-  return null;
-});
-log("4) clicked:", action);
-await page.waitForTimeout(8000);
-const pages = ctx.pages();
-const target = pages[pages.length - 1];
-await target.waitForLoadState("domcontentloaded").catch(() => {});
-await target.waitForTimeout(5000);
-const opened = await target.evaluate(() => ({ url: location.href, title: document.title, hasUnsloth: (document.body.innerHTML + " " + document.body.innerText).toLowerCase().includes("unsloth") }));
-log("5) opened app:", JSON.stringify(opened));
+if (listed) {
+  await page.goto(BASE + "/app-store/oliver-unsloth-studio", { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(3000);
+  const detail = await page.evaluate(() => ({
+    hasName: document.body.innerText.includes("Unsloth Studio"),
+    buttons: [...document.querySelectorAll("button")].map((b) => b.innerText.trim()).filter((t) => /Открыть|Установить|Open/.test(t)),
+  }));
+  log("4) store detail:", JSON.stringify(detail));
+}
 
 await browser.close();
