@@ -23,7 +23,8 @@ services:
         apt-get install -y -qq --no-install-recommends ca-certificates curl git >/dev/null 2>&1 || true
         if [ ! -x /data/.local/bin/unsloth ]; then
           echo "Running Unsloth Studio installer (first run)..."
-          printf 'n\n' | sh -c "$$(curl -fsSL https://unsloth.ai/install.sh)"
+          curl -fsSL https://unsloth.ai/install.sh -o /tmp/unsloth-install.sh
+          printf 'n\n' | sh /tmp/unsloth-install.sh
         fi
         exec /data/.local/bin/unsloth studio -H 0.0.0.0 -p 8888
     deploy:
