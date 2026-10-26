@@ -5,7 +5,7 @@ storage:
 name: Unsloth Studio
 tagline: Fine-tune and train LLMs locally and faster with Unsloth
 category: ai
-version: "1.0.0"
+version: "1.1.0"
 port: 8888
 description: >-
   Unsloth Studio allows you to train and fine-tune advanced AI models directly on your own hardware. 

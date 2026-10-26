@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   app_proxy:
     environment:
@@ -8,11 +6,26 @@ services:
       PROXY_AUTH_ADD: "false"
 
   unsloth:
-    image: unsloth/unsloth:latest
+    image: pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
     environment:
-      - OLLAMA_BASE_URL=http://ollama_ollama_1:11434
+      - HOME=/data
+      - PATH=/data/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin
+      - UV_CACHE_DIR=/data/cache/uv
+      - PIP_CACHE_DIR=/data/cache/pip
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ${APP_DATA_DIR}/data:/root/.unsloth
+      - ${APP_DATA_DIR}/data:/data
+    entrypoint: ["bash", "-lc"]
+    command:
+      - |
+        set -e
+        apt-get update -qq >/dev/null 2>&1 || true
+        apt-get install -y -qq --no-install-recommends ca-certificates curl git >/dev/null 2>&1 || true
+        if [ ! -x /data/.local/bin/unsloth ]; then
+          echo "Running Unsloth Studio installer (first run)..."
+          printf 'n\n' | sh -c "$$(curl -fsSL https://unsloth.ai/install.sh)"
+        fi
+        exec /data/.local/bin/unsloth studio -H 0.0.0.0 -p 8888
     deploy:
       resources:
         reservations:
