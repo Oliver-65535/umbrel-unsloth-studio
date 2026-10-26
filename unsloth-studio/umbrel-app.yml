@@ -1,4 +1,4 @@
-id: "unsloth-studio"
+id: "sparkles-unsloth-studio"   # Было просто "unsloth-studio"
 name: "Unsloth Studio"
 version: "1.0.0"
 tagline: "Run and train AI models locally"
