@@ -1,0 +1,18 @@
+id: "unsloth-studio"
+name: "Unsloth Studio"
+version: "1.0.0"
+tagline: "Run and train AI models locally"
+description: >-
+  The first local application to run, inference, and quickly fine-tune AI models.
+  Includes the user-friendly Unsloth Studio web interface and the JupyterLab development environment.
+developer: "Unsloth AI"
+website: "https://unsloth.ai"
+dependencies: []
+repo: "https://github.com"
+support: "https://github.com/issues"
+port: 8000
+gallery: []
+path: ""
+defaultPassword: ""
+submitter: "YourName"
+submissionDate: "2026-10-26"

@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  web:
+    image: unsloth/unsloth:latest
+    restart: on-failure
+    ipc: host
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    environment:
+      - JUPYTER_PASSWORD=umbrelpassword
+      - UNSLOTH_STUDIO_PASSWORD=umbrelstudio
+    # Umbrel автоматически мапит порт, указанный в umbrel-app.yml (8000), на этот контейнер
+    ports:
+      - "${APP_PORT}:8000" 
+      - "8888:8888" # JupyterLab пробрасываем напрямую наружу
+    volumes:
+      - ${APP_DATA_DIR}/data:/workspace/host
+      - ${APP_DATA_DIR}/cache:/workspace/.cache/huggingface
+      - ${APP_DATA_DIR}/studio:/opt/unsloth-studio
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
