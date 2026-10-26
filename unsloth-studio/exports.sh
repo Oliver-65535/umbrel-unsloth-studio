@@ -1,0 +1,1 @@
+export APP_UNSLOTH_STUDIO_URL="http://oliver-unsloth-studio_unsloth_1:8888"

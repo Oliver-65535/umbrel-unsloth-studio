@@ -1,24 +1,18 @@
-version: "3.7"
+version: '3.7'
 
 services:
-  web:
-    image: unsloth/unsloth:latest
-    restart: on-failure
-    ipc: host
-    ulimits:
-      memlock: -1
-      stack: 67108864
+  app_proxy:
     environment:
-      - JUPYTER_PASSWORD=umbrelpassword
-      - UNSLOTH_STUDIO_PASSWORD=umbrelstudio
-    # Umbrel автоматически мапит порт, указанный в umbrel-app.yml (8000), на этот контейнер
-    ports:
-      - "${APP_PORT}:8000" 
-      - "8888:8888" # JupyterLab пробрасываем напрямую наружу
+      APP_HOST: oliver-unsloth-studio_unsloth_1
+      APP_PORT: 8888
+      PROXY_AUTH_ADD: "false"
+
+  unsloth:
+    image: unsloth/unsloth:latest
+    environment:
+      - OLLAMA_BASE_URL=http://ollama_ollama_1:11434
     volumes:
-      - ${APP_DATA_DIR}/data:/workspace/host
-      - ${APP_DATA_DIR}/cache:/workspace/.cache/huggingface
-      - ${APP_DATA_DIR}/studio:/opt/unsloth-studio
+      - ${APP_DATA_DIR}/data:/root/.unsloth
     deploy:
       resources:
         reservations:
@@ -26,3 +20,4 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    restart: on-failure

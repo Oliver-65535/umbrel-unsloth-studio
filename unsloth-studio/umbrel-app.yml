@@ -1,18 +1,39 @@
-id: "sparkles-unsloth-studio"   # Было просто "unsloth-studio"
-name: "Unsloth Studio"
+manifestVersion: 1
+id: oliver-unsloth-studio
+storage:
+  dataRoot: data
+name: Unsloth Studio
+tagline: Fine-tune and train LLMs locally and faster with Unsloth
+category: ai
 version: "1.0.0"
-tagline: "Run and train AI models locally"
+port: 8888
 description: >-
-  The first local application to run, inference, and quickly fine-tune AI models.
-  Includes the user-friendly Unsloth Studio web interface and the JupyterLab development environment.
-developer: "Unsloth AI"
-website: "https://unsloth.ai"
-dependencies: []
-repo: "https://github.com"
-support: "https://github.com/issues"
-port: 8000
+  Unsloth Studio allows you to train and fine-tune advanced AI models directly on your own hardware. 
+  Self-hosting your development environment ensures full control over your data and protects your privacy.
+
+
+  ⚠️ Before running a training job, make sure your device has enough free VRAM/RAM to support it. 
+  Attempting to run a model that exceeds your available memory could cause your device to crash.
+
+
+  **Advanced Setup:**
+
+  If you want to connect Unsloth Studio to other apps or devices, here's how:
+    - Apps running on UmbrelOS: Use oliver-unsloth-studio_app_1 as the host and 8888 as the port.
+    - Custom Integrations: Connect to your container using your UmbrelOS local domain (e.g., http://umbrel.local:8888).
+backupIgnore:
+  - data/*
+developer: Unsloth
+website: https://unsloth.ai
+submitter: Oliver-65535
+repo: https://github.com
+support: https://github.com/issues
 gallery: []
-path: ""
+defaultUsername: ""
 defaultPassword: ""
-submitter: "YourName"
-submissionDate: "2026-10-26"
+dependencies: []
+permissions:
+  - GPU
+releaseNotes: >-
+  Initial release of Unsloth Studio for Umbrel Community App Store.
+path: ""
