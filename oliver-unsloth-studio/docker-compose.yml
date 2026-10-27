@@ -17,6 +17,7 @@ services:
       - UNSLOTH_STUDIO_BOOTSTRAP_TIMEOUT=0
     volumes:
       - ${APP_DATA_DIR}/data:/data
+      - ${UMBREL_ROOT}/shared/Data:/shared
     entrypoint: ["bash", "-lc"]
     command:
       - |

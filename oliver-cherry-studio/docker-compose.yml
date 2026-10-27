@@ -14,8 +14,12 @@ services:
       - NO_DECOR=1
       - START_DOCKER=false
       - DISABLE_IPV6=true
+      - PUID=1000
+      - PGID=1000
     volumes:
       - ${APP_DATA_DIR}/data:/config
       - ${APP_DATA_DIR}/init:/custom-cont-init.d:ro
       - ${UMBREL_ROOT}/data/storage/downloads:/media/Downloads
+      - /home/umbrel/Documents:/media/Documents
+      - ${UMBREL_ROOT}/shared/Data:/media/Data
     restart: on-failure

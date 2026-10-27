@@ -30,9 +30,15 @@ OB="/config/.config/openbox"
 mkdir -p "$OB"
 printf '%s\n' '/config/cherry-studio/start-cherry.sh &' >"$OB/autostart"
 
-# Surface Umbrel's shared Downloads folder inside the app's home directory so
-# it shows up in file dialogs.
+# Surface Umbrel's shared folders inside the app's home directory so they show
+# up in file dialogs: Downloads, Documents and the cross-app "Data" folder.
 ln -sfn /media/Downloads /config/Downloads 2>/dev/null || true
+ln -sfn /media/Documents /config/Documents 2>/dev/null || true
+ln -sfn /media/Data /config/Data 2>/dev/null || true
+for d in /media/Data; do
+  chown abc:abc "$d" 2>/dev/null || true
+  chmod 0777 "$d" 2>/dev/null || true
+done
 
 deps_present() {
   dpkg -l libgtk-3-0t64 2>/dev/null | grep -q '^ii'
