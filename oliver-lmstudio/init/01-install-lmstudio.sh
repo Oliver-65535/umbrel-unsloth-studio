@@ -65,9 +65,12 @@ if [ ! -x "$BASE/app/squashfs-root/AppRun" ] || [ "$(cat "$MARKER" 2>/dev/null)"
   echo "Installing LM Studio ${VERSION} (${ARCH_TAG})..."
   rm -rf "$BASE/app"
   mkdir -p "$BASE/app"
-  curl -fSL --retry 3 --retry-delay 5 --max-time 1800 \
-    -o "$BASE/LMStudio.AppImage" \
-    "https://lmstudio.ai/download/latest/linux/${ARCH_TAG}?format=appimage"
+  chown abc:abc "$BASE" "$BASE/app"
+  if [ ! -f "$BASE/LMStudio.AppImage" ]; then
+    curl -fSL --retry 3 --retry-delay 5 --max-time 1800 \
+      -o "$BASE/LMStudio.AppImage" \
+      "https://lmstudio.ai/download/latest/linux/${ARCH_TAG}?format=appimage"
+  fi
   chmod 755 "$BASE/LMStudio.AppImage"
   su abc -s /bin/bash -c "cd '$BASE/app' && HOME=/tmp '$BASE/LMStudio.AppImage' --appimage-extract >/dev/null"
   rm -f "$BASE/LMStudio.AppImage"
