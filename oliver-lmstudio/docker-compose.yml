@@ -8,8 +8,6 @@ services:
   lmstudio:
     image: ghcr.io/linuxserver/baseimage-kasmvnc:ubuntunoble@sha256:c6d902c207d6e4a66ca41ce36dda549cd58a5bc8d353468b24b0cf780eb528c8
     environment:
-      - CUSTOM_USER=lmstudio
-      - PASSWORD=${APP_PASSWORD}
       - TITLE=LM Studio
       - NO_DECOR=1
       - START_DOCKER=false

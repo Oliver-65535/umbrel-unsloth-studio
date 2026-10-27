@@ -14,10 +14,9 @@ description: >-
   your browser through KasmVNC as a single application window (no desktop).
 
 
-  ⚠️ First launch downloads and unpacks Cherry Studio (~1 min). After opening
-  the app and signing in to Umbrel you will see a KasmVNC login prompt: use
-  username "cherry" and the password shown by Umbrel. Right-click has no menu;
-  everything runs inside the Cherry Studio window itself.
+  ⚠️ First launch downloads and unpacks Cherry Studio (~1 min). The app opens
+  directly after signing in to Umbrel — no extra login. Right-click has no
+  menu; everything runs inside the Cherry Studio window itself.
 
 
   Connect local models (Ollama/LM Studio) or cloud providers directly inside
@@ -33,8 +32,6 @@ website: https://cherryai.com
 repo: https://github.com/CherryHQ/cherry-studio
 support: https://github.com/CherryHQ/cherry-studio/issues
 gallery: []
-defaultUsername: "cherry"
-deterministicPassword: true
 dependencies: []
 permissions:
   - STORAGE_DOWNLOADSreleaseNotes: ""

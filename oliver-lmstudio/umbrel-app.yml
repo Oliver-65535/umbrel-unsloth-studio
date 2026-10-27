@@ -17,9 +17,8 @@ description: >-
 
 
   ⚠️ First launch downloads the LM Studio AppImage (~700MB) and installs the
-  llmster runtime — give it a few minutes. After opening the app and signing in
-  to Umbrel you will see a KasmVNC login prompt: use username "lmstudio" and
-  the password shown by Umbrel.
+  llmster runtime — give it a few minutes. The app opens directly after signing
+  in to Umbrel — no extra login.
 
 
   Downloaded models are stored in ~/umbrel/shared/LMStudio/Models so they
@@ -38,8 +37,6 @@ website: https://lmstudio.ai
 repo: https://lmstudio.ai/docs
 support: https://github.com/lmstudio-ai/lmstudio-bug-tracker/issues
 gallery: []
-defaultUsername: "lmstudio"
-deterministicPassword: true
 dependencies: []
 permissions:
   - STORAGE_DOWNLOADS
