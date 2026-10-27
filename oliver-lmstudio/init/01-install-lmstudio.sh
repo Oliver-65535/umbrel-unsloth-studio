@@ -110,12 +110,12 @@ BIN="$BASE/app/squashfs-root/AppRun"
 
 # Relaunch loop: in single-application mode there is no desktop to fall back
 # to, so closing the LM Studio window must bring it back instead of leaving a
-# black screen. Use Umbrel's Stop/Restart to shut the app down. The llmster
-# daemon is started first so lms/server work immediately.
+# black screen. Use Umbrel's Stop/Restart to shut the app down. Do NOT start a
+# separate llmster daemon here: the desktop app embeds and manages its own
+# server, and running both at once makes LM Studio show "cannot start".
 cat >"$BASE/start-lmstudio.sh" <<EOF
 #!/bin/bash
 export PATH="/config/.lmstudio/bin:\$PATH"
-lms daemon up >/dev/null 2>&1 || true
 while true; do
   "$BIN" --no-sandbox --disable-dev-shm-usage
   sleep 2
