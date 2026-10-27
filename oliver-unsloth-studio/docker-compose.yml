@@ -13,6 +13,8 @@ services:
       - UV_CACHE_DIR=/data/cache/uv
       - PIP_CACHE_DIR=/data/cache/pip
       - NVIDIA_VISIBLE_DEVICES=all
+      - UNSLOTH_STUDIO_PASSWORD=${APP_PASSWORD}
+      - UNSLOTH_STUDIO_BOOTSTRAP_TIMEOUT=0
     volumes:
       - ${APP_DATA_DIR}/data:/data
     entrypoint: ["bash", "-lc"]

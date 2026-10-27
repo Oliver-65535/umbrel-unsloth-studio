@@ -6,7 +6,7 @@ name: Unsloth Studio
 icon: https://raw.githubusercontent.com/Oliver-65535/umbrel-unsloth-studio/main/oliver-unsloth-studio/icon.svg
 tagline: Fine-tune and train LLMs locally and faster with Unsloth
 category: ai
-version: "1.1.3"
+version: "1.2.0"
 port: 8888
 description: >-
   Unsloth Studio allows you to train and fine-tune advanced AI models directly on your own hardware. 
@@ -30,11 +30,11 @@ submitter: Oliver-65535
 repo: https://github.com
 support: https://github.com/issues
 gallery: []
-defaultUsername: ""
-defaultPassword: ""
+defaultUsername: "admin"
+deterministicPassword: true
 dependencies: []
 permissions:
   - GPU
 releaseNotes: >-
-  Initial release of Unsloth Studio for Umbrel Community App Store.
+  Umbrel now shows the initial admin password (deterministicPassword) after install; first-run login is seeded automatically.
 path: ""
