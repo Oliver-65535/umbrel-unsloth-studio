@@ -17,6 +17,9 @@ services:
       - PUID=1000
       - PGID=1000
       - NVIDIA_VISIBLE_DEVICES=all
+      # Let the LM Studio server accept connections from other apps on the
+      # Docker network once it is started (Developer tab or lms server start).
+      - LMS_SERVER_HOST=0.0.0.0
     volumes:
       - ${APP_DATA_DIR}/data:/config
       - ${APP_DATA_DIR}/init:/custom-cont-init.d:ro
