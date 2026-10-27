@@ -1,9 +1,0 @@
-#!/usr/bin/expect -f
-set timeout 3600
-set cmd [lindex $argv 0]
-spawn ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR umbrel@umbrel.local $cmd
-expect {
-  -re "(P|p)assword.*:" { send "$env(UMBREL_PASSWORD)\r"; exp_continue }
-  timeout { puts "\nEXPECT_TIMEOUT"; exit 2 }
-  eof
-}
