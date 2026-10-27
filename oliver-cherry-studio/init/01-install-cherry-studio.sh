@@ -34,16 +34,12 @@ deps_present() {
   dpkg -l libgtk-3-0t64 2>/dev/null | grep -q '^ii'
 }
 
-if [ -f "$MARKER" ] && deps_present; then
-  chown -R abc:abc "$OB"
-  echo "Cherry Studio ${CHERRY_VERSION} already installed."
-  exit 0
+if ! deps_present; then
+  export DEBIAN_FRONTEND=noninteractive
+  echo "Installing runtime dependencies..."
+  apt-get update -qq || true
+  apt-get install -y --no-install-recommends $PKGS
 fi
-
-export DEBIAN_FRONTEND=noninteractive
-echo "Installing runtime dependencies..."
-apt-get update -qq || true
-apt-get install -y --no-install-recommends $PKGS
 
 if [ ! -f "$MARKER" ]; then
   echo "Installing Cherry Studio ${CHERRY_VERSION} (${ARCH_TAG})..."
@@ -64,9 +60,15 @@ if [ -z "$BIN" ]; then
   exit 1
 fi
 
+# Relaunch loop: in single-application mode there is no desktop to fall back
+# to, so closing the Cherry Studio window must bring it back instead of
+# leaving a black screen. Use Umbrel's Stop/Restart to shut the app down.
 cat >"$BASE/start-cherry.sh" <<EOF
 #!/bin/bash
-exec "$BIN" --no-sandbox --disable-dev-shm-usage "\$@"
+while true; do
+  "$BIN" --no-sandbox --disable-dev-shm-usage
+  sleep 2
+done
 EOF
 
 chmod +x "$BASE/start-cherry.sh"
