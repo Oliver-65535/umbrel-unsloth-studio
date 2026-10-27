@@ -17,4 +17,5 @@ services:
     volumes:
       - ${APP_DATA_DIR}/data:/config
       - ${APP_DATA_DIR}/init:/custom-cont-init.d:ro
+      - ${UMBREL_ROOT}/data/storage/downloads:/media/Downloads
     restart: on-failure

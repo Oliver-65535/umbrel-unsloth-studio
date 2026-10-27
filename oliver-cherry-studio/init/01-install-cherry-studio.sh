@@ -30,6 +30,10 @@ OB="/config/.config/openbox"
 mkdir -p "$OB"
 printf '%s\n' '/config/cherry-studio/start-cherry.sh &' >"$OB/autostart"
 
+# Surface Umbrel's shared Downloads folder inside the app's home directory so
+# it shows up in file dialogs.
+ln -sfn /media/Downloads /config/Downloads 2>/dev/null || true
+
 deps_present() {
   dpkg -l libgtk-3-0t64 2>/dev/null | grep -q '^ii'
 }

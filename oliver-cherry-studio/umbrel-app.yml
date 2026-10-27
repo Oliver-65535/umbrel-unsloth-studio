@@ -22,7 +22,8 @@ description: >-
 
   Connect local models (Ollama/LM Studio) or cloud providers directly inside
   Cherry Studio settings. Your chats, assistants and knowledge bases are stored
-  on your Umbrel device only.
+  on your Umbrel device only. Files placed in Umbrel's Downloads folder are
+  available inside the app as "Downloads" in file dialogs.
 backupIgnore:
   - data/.cache/*
   - data/cherry-studio/app/**/Cache/*
@@ -34,7 +35,7 @@ gallery: []
 defaultUsername: "cherry"
 deterministicPassword: true
 dependencies: []
-permissions: []
-releaseNotes: ""
+permissions:
+  - STORAGE_DOWNLOADSreleaseNotes: ""
 path: ""
 submitter: Oliver-65535
