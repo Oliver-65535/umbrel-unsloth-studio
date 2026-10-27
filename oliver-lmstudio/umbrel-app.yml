@@ -1,0 +1,47 @@
+manifestVersion: 1
+id: oliver-lmstudio
+storage:
+  dataRoot: data
+name: LM Studio
+icon: https://raw.githubusercontent.com/Oliver-65535/umbrel-unsloth-studio/main/oliver-lmstudio/icon.png
+tagline: Discover, download and run LLMs locally — streamed to your browser
+category: ai
+version: "0.4.26"
+port: 3011
+description: >-
+  LM Studio lets you discover, download and run large language models (Qwen,
+  Mistral, Gemma, gpt-oss...) entirely on your Umbrel device, with GPU
+  acceleration when an NVIDIA GPU is present. The full desktop app is streamed
+  to your browser through KasmVNC as a single application window (no desktop),
+  and the llmster daemon plus the lms CLI are included.
+
+
+  ⚠️ First launch downloads the LM Studio AppImage (~700MB) and installs the
+  llmster runtime — give it a few minutes. After opening the app and signing in
+  to Umbrel you will see a KasmVNC login prompt: use username "lmstudio" and
+  the password shown by Umbrel.
+
+
+  Downloaded models are stored in ~/umbrel/shared/LMStudio/Models so they
+  survive reinstalls. You can also manage everything from the terminal inside
+  the app window (or via SSH into the container): lms get <model>, lms load,
+  lms server start — an OpenAI-compatible API then listens on port 1234 inside
+  the container. File dialogs show "Downloads", "Documents", "Models" and a
+  cross-app "Data" folder (~/umbrel/shared/Data).
+
+backupIgnore:
+  - data/.cache/*
+  - data/**/Cache/*
+  - data/**/GPUCache/*
+developer: LM Studio, Inc.
+website: https://lmstudio.ai
+repo: https://lmstudio.ai/docs
+support: https://github.com/lmstudio-ai/lmstudio-bug-tracker/issues
+gallery: []
+defaultUsername: "lmstudio"
+deterministicPassword: true
+dependencies: []
+permissions:
+  - STORAGE_DOWNLOADS
+path: ""
+submitter: Oliver-65535
