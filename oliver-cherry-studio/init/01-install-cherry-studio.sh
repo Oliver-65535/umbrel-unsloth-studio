@@ -47,7 +47,7 @@ apt-get install -y --no-install-recommends $PKGS
 
 if [ ! -f "$MARKER" ]; then
   echo "Installing Cherry Studio ${CHERRY_VERSION} (${ARCH_TAG})..."
-  mkdir -p "/tmp/cherry-install"
+  mkdir -p "$BASE/app" "/tmp/cherry-install"
   cd /tmp/cherry-install
   curl -fsSL -o cherry.deb \
     "https://github.com/CherryHQ/cherry-studio/releases/download/v${CHERRY_VERSION}/Cherry-Studio-${CHERRY_VERSION}-linux-${ARCH_TAG}.deb"
