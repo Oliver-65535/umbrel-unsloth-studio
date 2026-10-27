@@ -28,6 +28,11 @@ services:
           curl -fsSL https://unsloth.ai/install.sh -o /tmp/unsloth-install.sh
           printf 'n\n' | sh /tmp/unsloth-install.sh
         fi
+        if [ ! -f /data/.unsloth/studio/auth/auth.db ]; then
+          echo "No admin password set yet; seeding initial password from environment."
+        else
+          unset UNSLOTH_STUDIO_PASSWORD
+        fi
         exec /data/.local/bin/unsloth studio -H 0.0.0.0 -p 8888
     deploy:
       resources:
