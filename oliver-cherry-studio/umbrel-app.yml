@@ -1,0 +1,40 @@
+manifestVersion: 1
+id: oliver-cherry-studio
+storage:
+  dataRoot: data
+name: Cherry Studio
+icon: https://raw.githubusercontent.com/Oliver-65535/umbrel-unsloth-studio/main/oliver-cherry-studio/icon.png
+tagline: AI productivity studio with chat, agents and knowledge bases
+category: ai
+version: "2.1.8"
+port: 3010
+description: >-
+  Cherry Studio is an open-source AI workstation: chat with multiple models,
+  build knowledge bases, create images and automate tasks — now streamed to
+  your browser through KasmVNC as a single application window (no desktop).
+
+
+  ⚠️ First launch downloads and unpacks Cherry Studio (~1 min). After opening
+  the app and signing in to Umbrel you will see a KasmVNC login prompt: use
+  username "cherry" and the password shown by Umbrel. Right-click has no menu;
+  everything runs inside the Cherry Studio window itself.
+
+
+  Connect local models (Ollama/LM Studio) or cloud providers directly inside
+  Cherry Studio settings. Your chats, assistants and knowledge bases are stored
+  on your Umbrel device only.
+backupIgnore:
+  - data/.cache/*
+  - data/cherry-studio/app/**/Cache/*
+developer: CherryHQ
+website: https://cherryai.com
+repo: https://github.com/CherryHQ/cherry-studio
+support: https://github.com/CherryHQ/cherry-studio/issues
+gallery: []
+defaultUsername: "cherry"
+deterministicPassword: true
+dependencies: []
+permissions: []
+releaseNotes: ""
+path: ""
+submitter: Oliver-65535
